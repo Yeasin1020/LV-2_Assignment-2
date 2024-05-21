@@ -54,6 +54,25 @@ const getAllProducts = async (req: Request, res: Response) => {
 		});
 	}
 }
+// get single data
+const getSingleProduct = async (req: Request, res: Response) => {
+	try {
+		const { productId } = req.params;
+		const result = await ProductServices.getSingleProductFromDB(productId);
+
+		res.status(200).json({
+			success: true,
+			message: 'Product fetched successfully!',
+			date: result,
+		});
+	} catch (err: any) {
+		res.status(500).json({
+			success: false,
+			message: err.message || 'Something went wrong',
+			error: err,
+		});
+	}
+};
 
 // delete product from DB
 const deleteProduct = async (req: Request, res: Response) => {
@@ -78,5 +97,6 @@ export const ProductControllers = {
 	createProduct,
 	getAllProducts,
 	deleteProduct,
-	// updateProduct
+	getSingleProduct,
+
 }

@@ -19,6 +19,11 @@ const getAllProductsFromDB = async (searchTerm?: string) => {
 		throw new Error('Error fetching products');
 	}
 }
+// get single product
+const getSingleProductFromDB = async (id: string) => {
+	const result = await Product.findOne({ _id: id });
+	return result;
+};
 
 // delete product
 const deleteProductFromDB = async (id: string) => {
@@ -31,6 +36,7 @@ export const ProductServices = {
 	createProduct,
 	getAllProductsFromDB,
 	deleteProductFromDB,
+	getSingleProductFromDB,
 
 
 }
