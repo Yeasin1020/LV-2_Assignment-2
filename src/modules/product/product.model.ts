@@ -1,6 +1,7 @@
 import { Schema, model } from "mongoose";
 import { IInventory, IProduct, IProductVariant } from "./product.interface";
 
+
 const productVariantSchema = new Schema<IProductVariant>({
 	type: { type: String, required: true },
 	value: { type: String, required: true }
@@ -27,11 +28,22 @@ const productSchema = new Schema<IProduct>({
 	}
 });
 
-// creating a custom static method
-// productSchema.statics.isProductExists = async function (_id: string) {
-// 	const existingProduct = await Product.findOne({ _id });
-// 	return existingProduct
-// }
+//Query middleware
+
+productSchema.pre('find', function (next) {
+	this.find({ isDeleted: { $ne: true } })
+	next();
+});
+
+productSchema.pre('findOne', function (next) {
+	this.find({ isDeleted: { $ne: true } })
+	next();
+})
+
+productSchema.pre('aggregate', function (next) {
+	this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
+	next();
+})
 
 // Create and export the Product model
 export const Product = model<IProduct>('Product', productSchema);
