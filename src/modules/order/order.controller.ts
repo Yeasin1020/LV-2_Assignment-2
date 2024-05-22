@@ -6,11 +6,8 @@ import { orderValidationSchema } from "./order.validation";
 const orderCreate = async (req: Request, res: Response) => {
 	try {
 		const { productId } = req.body;
-		console.log(productId);
 		const orderData = req.body;
-		console.log("This is order data:", orderData);
 		const zodParseData = orderValidationSchema.parse(orderData);
-		console.log('Parsed data:', zodParseData); // Log the parsed data
 		// Check if the product exists
 		const productExists = await Product.exists({ _id: productId });
 		const result = await OrderServices.createOrderFromDB(orderData);
@@ -30,18 +27,55 @@ const orderCreate = async (req: Request, res: Response) => {
 };
 
 // get all data from db
+// const getAllOrder = async (req: Request, res: Response) => {
+// 	try {
+
+// 		const { email } = req.query
+// 		const result = await OrderServices.getAllOrderFromDB(email as string);
+
+// 		let message = "Orders fetched successfully!";
+
+// 		if (email) {
+// 			message = "Orders fetched successfully for user email!";
+// 		}
+
+// 		res.status(200).json({
+// 			success: true,
+// 			message,
+// 			data: result
+// 		});
+// 	} catch (err) {
+// 		console.log(err);
+// 	}
+// }
+
 const getAllOrder = async (req: Request, res: Response) => {
 	try {
-		const result = await OrderServices.getAllOrderFromDB();
+		const { email } = req.query;
+		console.log(email);
+		const result = await OrderServices.getAllOrderFromDB(email as string);
+
+		console.log(result);
+		let message = "Orders fetched successfully!";
+
+		if (email) {
+			message = "Orders fetched successfully for user email!";
+		}
+
 		res.status(200).json({
 			success: true,
-			message: 'Orders fetched successfully!',
+			message,
 			data: result
-		})
-	} catch (err) {
+		});
+	} catch (err: any) {
 		console.log(err);
+		res.status(500).json({
+			success: false,
+			message: err.message || 'Something went wrong!',
+			error: err,
+		});
 	}
-}
+};
 
 export const OrderController = {
 	orderCreate,

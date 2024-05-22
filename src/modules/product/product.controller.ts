@@ -32,10 +32,9 @@ const createProduct = async (req: Request, res: Response) => {
 const getAllProducts = async (req: Request, res: Response) => {
 	try {
 		const { searchTerm } = req.query;
-		const products = await ProductServices.getAllProductsFromDB(searchTerm as string);
+		const result = await ProductServices.getAllProductsFromDB(searchTerm as string);
 
 		let message = "Products fetched successfully!";
-		let data = products;
 
 		if (searchTerm) {
 			message = `Products matching search term '${searchTerm}' fetched successfully!`;
@@ -44,7 +43,7 @@ const getAllProducts = async (req: Request, res: Response) => {
 		res.status(200).json({
 			success: true,
 			message,
-			data
+			data: result
 		});
 	} catch (err: any) {
 		res.status(500).json({
