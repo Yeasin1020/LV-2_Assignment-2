@@ -48,7 +48,7 @@ const updateProductByIdFromDB = async (
 // delete product
 const deleteProductFromDB = async (id: string) => {
 	const result = await Product.findByIdAndDelete(id);
-	return result;
+	return null;
 }
 
 
