@@ -10,8 +10,9 @@ app.use("/api/orders", OrderRoutes);
 
 
 app.get("/", (req: Request, res: Response) => {
-	res.send("hiiiiiiiii")
+	res.send("deployment successfully done")
 })
+
 app.use((req: Request, res: Response) => {
 	res.status(404).json({
 		success: false,
