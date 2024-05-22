@@ -10,13 +10,12 @@ const orderCreate = async (req: Request, res: Response) => {
 		const zodParseData = orderValidationSchema.parse(orderData);
 		// Check if the product exists
 		const productExists = await Product.exists({ _id: productId });
-		const result = await OrderServices.createOrderFromDB(orderData);
+		const result = await OrderServices.createOrderFromDB(zodParseData);
 		res.status(200).json({
 			success: true,
 			message: 'Product created successfully!',
 			data: result
 		})
-		// Create the order
 	} catch (error: any) {
 		res.status(500).json({
 			success: false,
