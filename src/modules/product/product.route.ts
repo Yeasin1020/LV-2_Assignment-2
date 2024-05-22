@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express'
+import express from 'express'
 import { ProductControllers } from './product.controller';
 
 
@@ -10,7 +10,6 @@ router.get('/', ProductControllers.getAllProducts)
 router.get('/:productId', ProductControllers.getSingleProduct)
 router.put('/:productId', ProductControllers.updateProduct)
 router.delete('/:productId', ProductControllers.deleteProduct)
-// router.put('/:productId', ProductControllers.updateProduct)
 
 
 export const ProductRoutes = router;
