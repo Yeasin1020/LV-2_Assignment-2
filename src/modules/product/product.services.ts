@@ -20,10 +20,15 @@ const getAllProductsFromDB = async (searchTerm?: string) => {
 	}
 }
 // get single product
+// const getSingleProductFromDB = async (id: string) => {
+// 	const result = await Product.findOne({ _id: id }).select('-isDeleted');
+// 	return result;
+// };
+
 const getSingleProductFromDB = async (id: string) => {
-	const result = await Product.findOne({ _id: id });
+	const result = await Product.find({ _id: id });
 	return result;
-};
+}
 
 //update product 
 const updateProductByIdFromDB = async (
@@ -42,7 +47,7 @@ const updateProductByIdFromDB = async (
 
 // delete product
 const deleteProductFromDB = async (id: string) => {
-	const result = await Product.updateOne({ _id: id }, { isDeleted: true });
+	const result = await Product.findByIdAndDelete(id);
 	return result;
 }
 

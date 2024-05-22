@@ -22,10 +22,7 @@ const productSchema = new Schema<IProduct>({
 	tags: { type: [String], required: true },
 	variants: { type: [productVariantSchema], required: true },
 	inventory: { type: inventorySchema, required: true },
-	isDeleted: {
-		type: Boolean,
-		default: false
-	}
+
 });
 
 //Query middleware

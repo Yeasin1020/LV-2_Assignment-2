@@ -21,5 +21,4 @@ export const productValidationSchema = z.object({
 	tags: z.array(z.string().min(1, { message: "Tag cannot be empty" })).nonempty({ message: "At least one tag is required" }),
 	variants: z.array(productVariantValidationSchema).nonempty({ message: "At least one variant is required" }),
 	inventory: inventoryValidationSchema,
-	isDelete: z.boolean().optional()
 });

@@ -18,9 +18,6 @@ export interface IProduct {
 	tags: string[];
 	variants: IProductVariant[];
 	inventory: IInventory;
-	isDeleted: boolean
+
 }
 
-// export interface ProductModel extends Model<IProduct> {
-// 	isProductExists(_id: string): Promise<IProduct | null>
-// }
